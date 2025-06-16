@@ -4,3 +4,5 @@ venv/
 
 /notes.txt
 /next.md
+
+terraform.tfvars
