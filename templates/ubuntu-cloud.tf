@@ -1,5 +1,14 @@
 # Ubuntu cloud-init template configuration
 
+terraform {
+  required_providers {
+    proxmox = {
+      source  = "telmate/proxmox"
+      version = "2.9.14"
+    }
+  }
+}
+
 # Variables for Ubuntu template
 variable "ubuntu_version" {
   default = "22.04"
@@ -14,6 +23,18 @@ variable "template_name" {
 variable "template_disk_size" {
   default = "32G"
   description = "Disk size for the template"
+}
+
+variable "container_password" {
+  description = "Password for containers"
+  type        = string
+  sensitive   = true
+}
+
+variable "container_ssh_keys" {
+  description = "SSH public keys to add to containers"
+  type        = list(string)
+  default     = []
 }
 
 # Download Ubuntu cloud image

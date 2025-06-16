@@ -1,5 +1,14 @@
 # LXC container template configurations
 
+terraform {
+  required_providers {
+    proxmox = {
+      source  = "telmate/proxmox"
+      version = "2.9.14"
+    }
+  }
+}
+
 # Variables for container defaults
 variable "container_password" {
   type = string

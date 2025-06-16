@@ -1,5 +1,14 @@
 # K3s Kubernetes cluster configuration
 
+terraform {
+  required_providers {
+    proxmox = {
+      source  = "telmate/proxmox"
+      version = "2.9.14"
+    }
+  }
+}
+
 # Variables for K3s cluster
 variable "k3s_master_count" {
   default = 3
@@ -9,6 +18,11 @@ variable "k3s_master_count" {
 variable "k3s_worker_count" {
   default = 2
   description = "Number of K3s worker nodes"
+}
+
+variable "proxmox_nodes" {
+  description = "List of Proxmox node names"
+  type        = list(string)
 }
 
 # K3s master nodes

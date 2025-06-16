@@ -1,5 +1,14 @@
 # Ceph storage cluster configuration
 
+terraform {
+  required_providers {
+    proxmox = {
+      source  = "telmate/proxmox"
+      version = "2.9.14"
+    }
+  }
+}
+
 # Variables for Ceph cluster
 variable "ceph_mon_count" {
   default = 3
@@ -14,6 +23,11 @@ variable "ceph_osd_count" {
 variable "ceph_network" {
   default = "192.168.1.0/24"
   description = "Network for Ceph cluster communication"
+}
+
+variable "proxmox_nodes" {
+  description = "List of Proxmox node names"
+  type        = list(string)
 }
 
 # Ceph monitor nodes
@@ -82,27 +96,27 @@ resource "proxmox_vm_qemu" "ceph_osd" {
 }
 
 # Ceph pool configuration
-resource "proxmox_storage_ceph_pool" "vm_storage" {
-  name = "vm-storage"
-  size = 3  # Replication factor
-  min_size = 2
-  pg_num = 128
-  
-  depends_on = [
-    proxmox_vm_qemu.ceph_mon,
-    proxmox_vm_qemu.ceph_osd
-  ]
-}
+# resource "proxmox_storage_ceph_pool" "vm_storage" {
+#   name = "vm-storage"
+#   size = 3  # Replication factor
+#   min_size = 2
+#   pg_num = 128
+#   
+#   depends_on = [
+#     proxmox_vm_qemu.ceph_mon,
+#     proxmox_vm_qemu.ceph_osd
+#   ]
+# }
 
 # Storage configuration for VMs
-resource "proxmox_storage" "ceph_storage" {
-  storage = "ceph-vm-storage"
-  type    = "rbd"
-  pool    = "vm-storage"
-  nodes   = local.proxmox_nodes
-  content = ["images", "rootdir"]
-  
-  depends_on = [
-    proxmox_storage_ceph_pool.vm_storage
-  ]
-}
+# resource "proxmox_storage" "ceph_storage" {
+#   storage = "ceph-vm-storage"
+#   type    = "rbd"
+#   pool    = "vm-storage"
+#   nodes   = local.proxmox_nodes
+#   content = ["images", "rootdir"]
+#   
+#   depends_on = [
+#     proxmox_storage_ceph_pool.vm_storage
+#   ]
+# }

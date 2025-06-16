@@ -50,10 +50,13 @@ locals {
 # Module imports
 module "ubuntu_templates" {
   source = "./templates"
+  container_password = var.container_password
+  container_ssh_keys = []
 }
 
 module "kubernetes" {
   source = "./kubernetes"
+  proxmox_nodes = local.proxmox_nodes
 }
 
 module "containers" {
@@ -67,6 +70,7 @@ module "network" {
 
 module "storage" {
   source = "./storage"
+  proxmox_nodes = local.proxmox_nodes
 }
 
 module "monitoring" {

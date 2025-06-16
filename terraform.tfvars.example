@@ -1,0 +1,11 @@
+# Example terraform.tfvars for Proxmox Terraform project
+
+proxmox_api_url    = "https://your-proxmox-endpoint:8006/api2/json"
+proxmox_user       = "root@pam"
+proxmox_password   = "your-proxmox-password"
+container_password = "your-container-password"
+
+# Optional: SSH public keys for containers (as a list)
+container_ssh_keys = [
+  # "ssh-rsa AAAAB3NzaC1yc2EAAAADAQABAAABAQC...",
+]
