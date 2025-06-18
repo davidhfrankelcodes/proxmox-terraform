@@ -34,7 +34,7 @@ variable "proxmox_nodes" {
 resource "proxmox_vm_qemu" "ceph_mon" {
   count       = var.ceph_mon_count
   name        = "ceph-mon-${count.index + 1}"
-  target_node = element(local.proxmox_nodes, count.index)
+  target_node = element(var.proxmox_nodes, count.index)
   clone       = "ubuntu-cloud-template"
   
   cores    = 2
@@ -60,7 +60,7 @@ resource "proxmox_vm_qemu" "ceph_mon" {
 resource "proxmox_vm_qemu" "ceph_osd" {
   count       = var.ceph_osd_count
   name        = "ceph-osd-${count.index + 1}"
-  target_node = element(local.proxmox_nodes, count.index)
+  target_node = element(var.proxmox_nodes, count.index)
   clone       = "ubuntu-cloud-template"
   
   cores    = 4

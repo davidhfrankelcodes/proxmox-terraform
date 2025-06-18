@@ -38,6 +38,12 @@ variable "container_password" {
   sensitive   = true
 }
 
+variable "container_ssh_keys" {
+  description = "SSH public keys to add to containers"
+  type        = list(string)
+  default     = []
+}
+
 # Local variables
 locals {
   proxmox_nodes = ["pve1", "pve2", "pve3"] # Add your node names

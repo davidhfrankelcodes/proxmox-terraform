@@ -87,9 +87,6 @@ resource "proxmox_vm_qemu" "ubuntu_template" {
   
   # Basic cloud-init config
   cicustom = "user=local:snippets/user-data"
-  
-  # Ensure this is treated as a template
-  template = true
 }
 
 # Output template information

@@ -29,7 +29,7 @@ variable "proxmox_nodes" {
 resource "proxmox_vm_qemu" "k3s_master" {
   count       = var.k3s_master_count
   name        = "k3s-master-${count.index + 1}"
-  target_node = element(local.proxmox_nodes, count.index)
+  target_node = element(var.proxmox_nodes, count.index)
   clone       = "ubuntu-cloud-template"
   
   cores    = 2
@@ -55,7 +55,7 @@ resource "proxmox_vm_qemu" "k3s_master" {
 resource "proxmox_vm_qemu" "k3s_worker" {
   count       = var.k3s_worker_count
   name        = "k3s-worker-${count.index + 1}"
-  target_node = element(local.proxmox_nodes, count.index)
+  target_node = element(var.proxmox_nodes, count.index)
   clone       = "ubuntu-cloud-template"
   
   cores    = 4
